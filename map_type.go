@@ -6,6 +6,16 @@ type GoogleMapParam interface {
 	Params() url.Values
 }
 
+type Status string
+
+const (
+	K_STATUS_OK               Status = "OK"
+	K_STATUS_ZERO_RESULTS     Status = "ZERO_RESULTS"
+	K_STATUS_OVER_QUERY_LIMIT Status = "OVER_QUERY_LIMIT"
+	K_STATUS_REQUEST_DENIED   Status = "REQUEST_DENIED"
+	K_STATUS_INVALID_REQUEST  Status = "INVALID_REQUEST"
+)
+
 type Location struct {
 	Latitude  float64 `json:"lat"`
 	Longitude float64 `json:"lng"`

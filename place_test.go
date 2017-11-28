@@ -8,7 +8,7 @@ import (
 func TestGoogleMap_PlaceNearbySearch(t *testing.T) {
 	fmt.Println("=====PlaceNearbySearch=====")
 	var p = PlaceNearbySearchParam{}
-	p.Types = "store"
+	p.Types = K_PLACE_TYPE_STORE
 	p.Keyword = "vapor"
 	p.Radius = 5000
 	p.Latitude = -33.8670522
