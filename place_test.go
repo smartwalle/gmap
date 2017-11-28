@@ -23,6 +23,21 @@ func TestGoogleMap_PlaceNearbySearch(t *testing.T) {
 	}
 }
 
+func TestGoogleMap_PlaceTextSearch(t *testing.T) {
+	fmt.Println("=====PlaceTextSearch=====")
+	var p = PlaceTextSearchParam{}
+	p.Types = K_PLACE_TYPE_STORE
+	p.Query = "apple in china"
+
+	var r, _ = client.PlaceTextSearch(p)
+	if r == nil {
+		t.Fatal("PlaceTextSearch 获取数据异常")
+	}
+	if r.Status != "OK" {
+		t.Fatal("PlaceTextSearch 返回数据状态错误")
+	}
+}
+
 func TestGoogleMap_PlaceDetails(t *testing.T) {
 	fmt.Println("=====PlaceDetails=====")
 	var p = PlaceDetailsParam{}

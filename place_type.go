@@ -152,7 +152,46 @@ func (this PlaceNearbySearchParam) Params() url.Values {
 	return v
 }
 
-type PlaceNearbySearchResults struct {
+type PlaceTextSearchParam struct {
+	Query     string
+	Latitude  float64
+	Longitude float64
+	Radius    int
+
+	Language string
+	//MinPrice int
+	//MaxPrice int
+	OpenNow   bool
+	Types     PlaceType
+	PageToken string
+}
+
+func (this PlaceTextSearchParam) Params() url.Values {
+	var v = url.Values{}
+
+	if this.Radius > 0 {
+		v.Add("location", fmt.Sprint(this.Latitude, ",", this.Longitude))
+		v.Add("radius", fmt.Sprint(this.Radius))
+	}
+	if len(this.Language) > 0 {
+		v.Add("language", this.Language)
+	}
+	if len(this.Query) > 0 {
+		v.Add("query", this.Query)
+	}
+	if this.OpenNow {
+		v.Add("opennow", fmt.Sprint(this.OpenNow))
+	}
+	if len(this.Types) > 0 {
+		v.Add("types", string(this.Types))
+	}
+	if len(this.PageToken) > 0 {
+		v.Add("pageToken", this.PageToken)
+	}
+	return v
+}
+
+type PlaceSearchResults struct {
 	HtmlAttributions []string          `json:"html_attributions"`
 	Results          []*PlaceBasicInfo `json:"results"`
 	NextPageToken    string            `json:"next_page_token"`
@@ -160,18 +199,19 @@ type PlaceNearbySearchResults struct {
 }
 
 type PlaceBasicInfo struct {
-	Id           string        `json:"id"`
-	PlaceId      string        `json:"place_id"`
-	Name         string        `json:"name"`
-	Geometry     *Geometry     `json:"geometry"`
-	Icon         string        `json:"icon"`
-	Photos       []*Photo      `json:"photos"`
-	Rating       float32       `json:"rating"`
-	Reference    string        `json:"reference"`
-	Scope        string        `json:"scope"`
-	Types        []PlaceType   `json:"types"`
-	Vicinity     string        `json:"vicinity"`
-	OpeningHours *OpeningHours `json:"opening_hours"`
+	Id               string        `json:"id"`
+	PlaceId          string        `json:"place_id"`
+	Name             string        `json:"name"`
+	Geometry         *Geometry     `json:"geometry"`
+	Icon             string        `json:"icon"`
+	Photos           []*Photo      `json:"photos"`
+	Rating           float32       `json:"rating"`
+	Reference        string        `json:"reference"`
+	Scope            string        `json:"scope"`
+	Types            []PlaceType   `json:"types"`
+	Vicinity         string        `json:"vicinity"`
+	OpeningHours     *OpeningHours `json:"opening_hours"`
+	FormattedAddress string        `json:"formatted_address"`
 }
 
 type PlaceDetailsParam struct {
@@ -204,7 +244,6 @@ type PlaceDetails struct {
 	*PlaceBasicInfo
 	AddressComponents        []*AddressComponent `json:"address_components"`
 	AdrAddress               string              `json:"adr_address"`
-	FormattedAddress         string              `json:"formatted_address"`
 	FormattedPhoneNumber     string              `json:"formatted_phone_number"`
 	InternationalPhoneNumber string              `json:"international_phone_number"`
 	Reviews                  []*Review           `json:"reviews"`
