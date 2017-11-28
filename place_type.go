@@ -191,6 +191,48 @@ func (this PlaceTextSearchParam) Params() url.Values {
 	return v
 }
 
+type PlaceRadarSearchParam struct {
+	Latitude  float64
+	Longitude float64
+	Radius    int
+
+	Keyword  string
+	Language string
+	//MinPrice int
+	//MaxPrice int
+	Name      string
+	OpenNow   bool
+	Types     PlaceType
+	PageToken string
+}
+
+func (this PlaceRadarSearchParam) Params() url.Values {
+	var v = url.Values{}
+	v.Add("location", fmt.Sprint(this.Latitude, ",", this.Longitude))
+	if this.Radius > 0 {
+		v.Add("radius", fmt.Sprint(this.Radius))
+	}
+	if len(this.Keyword) > 0 {
+		v.Add("keyword", this.Keyword)
+	}
+	if len(this.Language) > 0 {
+		v.Add("language", this.Language)
+	}
+	if len(this.Name) > 0 {
+		v.Add("name", this.Name)
+	}
+	if this.OpenNow {
+		v.Add("opennow", fmt.Sprint(this.OpenNow))
+	}
+	if len(this.Types) > 0 {
+		v.Add("types", string(this.Types))
+	}
+	if len(this.PageToken) > 0 {
+		v.Add("pageToken", this.PageToken)
+	}
+	return v
+}
+
 type PlaceSearchResults struct {
 	HtmlAttributions []string          `json:"html_attributions"`
 	Results          []*PlaceBasicInfo `json:"results"`

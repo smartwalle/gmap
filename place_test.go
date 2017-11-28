@@ -38,6 +38,23 @@ func TestGoogleMap_PlaceTextSearch(t *testing.T) {
 	}
 }
 
+func TestGoogleMap_PlaceRadarSearch(t *testing.T) {
+	fmt.Println("=====PlaceRadarSearch=====")
+	var p = PlaceRadarSearchParam{}
+	p.Types = K_PLACE_TYPE_STORE
+	p.Radius = 5000
+	p.Latitude = -33.8670522
+	p.Longitude = 151.1957362
+
+	var r, _ = client.PlaceRadarSearch(p)
+	if r == nil {
+		t.Fatal("PlaceRadarSearch 获取数据异常")
+	}
+	if r.Status != "OK" {
+		t.Fatal("PlaceRadarSearch 返回数据状态错误")
+	}
+}
+
 func TestGoogleMap_PlaceDetails(t *testing.T) {
 	fmt.Println("=====PlaceDetails=====")
 	var p = PlaceDetailsParam{}
