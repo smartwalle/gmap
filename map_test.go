@@ -8,7 +8,7 @@ import (
 var client *GoogleMap
 
 func TestMain(m *testing.M) {
-	client = New("AIzaSyDYGqqQFZrUqWYiR_ez9gIx8t7CbTpjsQE", "")
+	client = New("", "")
 	exitCode := m.Run()
 	os.Exit(exitCode)
 }
