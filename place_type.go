@@ -238,6 +238,7 @@ type PlaceSearchResults struct {
 	Results          []*PlaceBasicInfo `json:"results"`
 	NextPageToken    string            `json:"next_page_token"`
 	Status           Status            `json:"status"`
+	ErrorMessage     string            `json:"error_message"`
 }
 
 type PlaceBasicInfo struct {
@@ -278,8 +279,9 @@ func (this PlaceDetailsParam) Params() url.Values {
 
 type PlaceDetailsResults struct {
 	HtmlAttributions []string      `json:"html_attributions"`
-	Status           Status        `json:"status"`
 	Result           *PlaceDetails `json:"result"`
+	Status           Status        `json:"status"`
+	ErrorMessage     string        `json:"error_message"`
 }
 
 type PlaceDetails struct {
